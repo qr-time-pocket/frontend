@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { verifyToken } from "../apis/auth";
 
 const Home: React.FC = () => {
+  useEffect(() => {
+    verifyToken().then((res) => {
+      console.log(res);
+    });
+  }, []);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full text-center">

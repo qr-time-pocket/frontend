@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import {
   Sidebar,
   SidebarContent,
@@ -7,44 +5,35 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { VersionSwitcher } from "@/components/version-switcher";
 
-// This is sample data.
-const data = {
-  versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
-  navMain: [
-    {
-      title: "모아보기",
-      url: "#",
-      items: [
-        {
-          title: "아카데미",
-          url: "#",
-        },
-        {
-          title: "운동찾기",
-          url: "#",
-        },
-      ],
-    },
-  ],
-};
+interface SidebarData {
+  navMain: Array<{
+    title: string;
+    url: string;
+    items: Array<{
+      title: string;
+      url: string;
+    }>;
+  }>;
+}
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  data: SidebarData;
+}
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ data, ...props }: AppSidebarProps) {
   return (
     <Sidebar {...props}>
-      <SidebarHeader>
+      {/* <SidebarHeader>
         <VersionSwitcher
           versions={data.versions}
           defaultVersion={data.versions[0]}
         />
-      </SidebarHeader>
+      </SidebarHeader> */}
       <SidebarContent>
         {/* We create a SidebarGroup for each parent. */}
         {data.navMain.map((item) => (

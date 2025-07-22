@@ -1,8 +1,28 @@
+import { useGetAcademies } from "@/apis/academy";
 import Dashboard from "@/assets/dashboard-dark.png";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router";
 
 export default function AcademyPage() {
+  const navigate = useNavigate();
+  const { data: academies, isLoading, isError } = useGetAcademies();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error</div>;
+
+  if (academies.length === 0) {
+    return <Hero />;
+  }
+
+  if (academies.length === 1) {
+    // 인덱스 대신 first 같은거 있는지 확인
+    navigate(`/academy/${academies[0].id}`);
+  }
+
+  return <div>여러개가 있으시네요</div>;
+}
+
+function Hero() {
   const navigate = useNavigate();
   return (
     <section className="relative w-full h-lvh flex flex-col items-center justify-center text-center bg-black text-white px-4">
@@ -84,17 +104,17 @@ export default function AcademyPage() {
       <style
         dangerouslySetInnerHTML={{
           __html: `
-          @keyframes slideUp {
-            from {
-              opacity: 0;
-              transform: translateY(30px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-        `,
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    `,
         }}
       />
     </section>
